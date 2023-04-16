@@ -1,0 +1,58 @@
+// connect metamask wallet to site
+const metaMask_connect = () => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                
+                if (!window.ethereum) {
+                    throw new Error('MetaMask is not installed');
+                }
+                
+                await ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{chainId: '0x4'}],         
+                });
+                
+                const accounts = await ethereum.request({method: 'eth_requestAccounts'});
+
+                resolve({
+                    result: true,
+                    message: 'success',
+                    walletaddress: accounts[0]
+                });
+            }
+            catch (e) {
+                resolve({
+                    result: false,
+                    message: e.message
+                });
+            }
+        });
+ };
+ 
+ 
+ // you should use async/await
+    async function jquery_button_clickfunction(){
+
+        // collect metamask function
+        let result = await metaMask_connect();
+
+        // display result based on result
+        console.log(result);
+    }
+    
+    
+ // you need to call this function when frontend page is loaded or when user click Connect Metamask button
+ 
+ // response example
+     // {
+    //     "result": true,
+    //     "message": "success",
+    //     "walletaddress": "0x1e34d2b3ea6ef29652aa6f2e3bd493017bed0591"
+    // }
+    
+    // {
+    //     "result": false,
+    //     "message": "User rejected the request."
+    // }
+
+
